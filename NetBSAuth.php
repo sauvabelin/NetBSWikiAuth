@@ -58,6 +58,25 @@ class NetBSAuth extends AuthPlugin
         return hash_equals($passwordHash, $this->hashPassword($password, $salt));
     }
 
+    public function updateUser(&$user)
+    {
+        $netBSUser = $this->netBS->getUser($user->getName());
+
+        if(!$user)
+            return false;
+
+        if($netBSUser['wiki_admin'] === "1") {
+
+            $user->addGroup('sysop');
+            $user->addGroup('bureaucrat');
+        }
+    }
+
+    public function initUser(&$user, $autocreate = false)
+    {
+        return $this->updateUser($user);
+    }
+
     public function addUser($user, $password, $email = '', $realname = '')
     {
         return false;

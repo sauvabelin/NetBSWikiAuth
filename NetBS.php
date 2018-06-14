@@ -52,6 +52,11 @@ class NetBS
      */
     private $saltColumn;
 
+    /**
+     * @var string
+     */
+    private $isAdminColumn;
+
     private function __construct($config)
     {
         $this->host             = $config['host'];
@@ -62,6 +67,7 @@ class NetBS
         $this->usernameColumn   = $config['usernameColumn'];
         $this->hashColumn       = $config['hashColumn'];
         $this->saltColumn       = $config['saltColumn'];
+        $this->isAdminColumn    = $config['isAdminColumn'];
     }
 
     public static function getInstance($config) {
@@ -75,7 +81,7 @@ class NetBS
 
     public function getUser($username) {
 
-        $select = $this->getPdo()->prepare("SELECT {$this->usernameColumn}, {$this->hashColumn}, {$this->saltColumn} FROM {$this->table} WHERE username = :u");
+        $select = $this->getPdo()->prepare("SELECT {$this->usernameColumn}, {$this->hashColumn}, {$this->saltColumn}, {$this->isAdminColumn} FROM {$this->table} WHERE username = :u");
         $select->bindParam('u', $username);
         $select->execute();
 
