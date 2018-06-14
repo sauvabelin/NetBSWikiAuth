@@ -70,6 +70,13 @@ class NetBSAuth extends AuthPlugin
             $user->addGroup('sysop');
             $user->addGroup('bureaucrat');
         }
+
+        else {
+            $user->removeGroup('sysop');
+            $user->removeGroup('bureaucrat');
+        }
+
+        return true;
     }
 
     public function initUser(&$user, $autocreate = false)
