@@ -18,6 +18,7 @@ $wgAuth    = new NetBSAuth([
     'usernameColumn'    => 'username',
     'hashColumn'        => 'password',
     'saltColumn'        => 'salt',
+    'adminColumn'		=> 'wiki_admin',
     'bcrypt_cost'       => 5000
 ]);
 ```

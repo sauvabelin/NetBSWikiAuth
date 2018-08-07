@@ -9,7 +9,7 @@ class NetBSAuth extends AuthPlugin
 {
     private $netBS;
 
-    private $cost;
+    private $config;
 
     /**
      * @var \Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder
@@ -19,7 +19,7 @@ class NetBSAuth extends AuthPlugin
     public function __construct($config)
     {
         $this->netBS        = NetBS::getInstance($config);
-        $this->cost         = $config['bcrypt_cost'];
+        $this->config       = $config;
     }
 
     public function autoCreate()
@@ -65,7 +65,7 @@ class NetBSAuth extends AuthPlugin
         if(!$user)
             return false;
 
-        if($netBSUser['wiki_admin'] === "1") {
+        if($netBSUser[$this->config['adminColumn']] === "1") {
 
             $user->addGroup('sysop');
             $user->addGroup('bureaucrat');
@@ -104,7 +104,7 @@ class NetBSAuth extends AuthPlugin
     private function getEncoder() {
 
         if(!$this->encoder)
-            $this->encoder  = new \Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder('sha512', true, $this->cost);
+            $this->encoder  = new \Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder('sha512', true, $this->config['bcrypt_cost']);
 
         return $this->encoder;
     }

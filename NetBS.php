@@ -67,7 +67,7 @@ class NetBS
         $this->usernameColumn   = $config['usernameColumn'];
         $this->hashColumn       = $config['hashColumn'];
         $this->saltColumn       = $config['saltColumn'];
-        $this->isAdminColumn    = $config['isAdminColumn'];
+        $this->isAdminColumn    = $config['adminColumn'];
     }
 
     public static function getInstance($config) {
